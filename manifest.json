@@ -1,0 +1,15 @@
+{
+  "short_name": "Mess Manager",
+  "name": "Mess Management App",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#00b09b"
+}
