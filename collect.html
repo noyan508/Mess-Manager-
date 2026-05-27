@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Collection Management</title>
+    <link rel="stylesheet" href="collect.css">
+</head>
+<body>
+    <div class="section">
+         <h2>মেস মিল কালেকশন সিস্টেম</h2>
+
+        <label for="name">নাম লিখুন:</label>
+        <input type="text" id="name" placeholder="যেমন: Arif, Rahim" oninput="loadCollection()">
+
+        <label for="month">মাস সিলেক্ট করুন:</label>
+        <select id="month" onchange="loadCollection()">
+            <option value="">-- মাস বেছে নিন --</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+
+        <input type="hidden" id="year" value="2026">
+
+        <label for="taka">টাকার পরিমাণ (টাকা):</label>
+        <input type="number" id="taka" placeholder="যেমন: 500">
+       <div>
+        <button onclick="saveMealToFirebase()">ডাটা সেভ করুন</button>
+      </div>
+
+    <div class="data-table" >
+        
+       <div class="heading-container">
+    <h3 id="heading-name">NAME : সবার</h3>
+    <h3 id="heading-month">MONTH :</h3>
+       </div>
+
+        
+        <div class="table-scroll">
+            <table id="collect-table">
+                <thead>
+                    <tr>
+                        <th>নাম (Name)</th>
+                        <th>মাসের নাম </th>
+                        <th>জমা টাকা</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    </tbody>
+              <tr>
+              <th colspan="2">TOTAL</th>
+              <th id="totalCollect">0</th>
+            </tr>
+            </table>
+            <div>
+                 <button id="clear-btn">CLEAR</button>
+            </div>
+           
+      </div>
+    </div>
+    </div>
+       <script type="module" src="app-sync.js"></script>
+    <script type="module" src="collect.js"></script>
+
+    
+      <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-Zzsrl5-chOLtnFalRZU4bgGNnSJ-K18",
+      authDomain: "mess-manager-9b662.firebaseapp.com",
+      projectId: "mess-manager-9b662",
+      storageBucket: "mess-manager-9b662.firebasestorage.app",
+      messagingSenderId: "710172865421",
+      appId: "1:710172865421:web:8897233378a250b0ed03c4",
+      measurementId: "G-B9HB486S8W",
+      databaseURL: "https://mess-manager-9b662-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    
+    window.firebaseDB = database;
+    window.firebaseDatabaseRef = ref;
+    window.firebaseSet = set;
+    window.firebaseGet = get;
+  </script>
+
+</body>
+</html>

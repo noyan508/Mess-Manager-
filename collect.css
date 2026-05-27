@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Poppins:wght@300;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+.section {
+    background: #ffffff;
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    border-bottom: 3px solid #2ecc71;
+    padding-bottom: 10px;
+}
+
+
+label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+select:focus, input:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+}
+
+
+#clear-btn {
+    width: 100%;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#clear-btn:hover {
+    background-color: #27ae60;
+}
+
+#clear-btn:active {
+    transform: scale(0.98);
+}
+
+
+.data-table {
+    margin-top: 35px;
+}
+.table-scroll {
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background-color: #fff;
+}
+
+th, td {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+thead tr {
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+thead th {
+    color: #64748b;
+    font-weight: 700;
+}
+
+
+tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+
+tr:last-child {
+    background-color: #eaeffa;
+    font-weight: 700;
+    border-top: 2px solid #cbd5e1;
+}
+
+tr:last-child th {
+    color: #1e293b;
+    font-size: 15px;
+}
+
+#totalCollect {
+    color: #e74c3c;
+    font-size: 16px;
+    text-align: left;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.heading-container {
+    display: flex;
+    justify-content: space-evenly;/* উপাদানগুলোকে বাম দিক থেকে শুরু করবে */
+    gap: 40px;                  
+    margin-top: 20px;            
+    margin-bottom: 10px;
+}
+
+.heading-container h3 {
+    margin: 0;                  
+    font-size: 1.17em;           
+    font-weight: bold;
+}
+

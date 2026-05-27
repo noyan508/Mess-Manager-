@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>মেস ম্যানেজার</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+<body>
+
+  <div id="loginScreen" class="auth-screen">
+    <h2>মেস ম্যানেজার অ্যাপ</h2>
+    <p>সামনে যাওয়ার জন্য দয়া করে লগইন করুন</p>
+    <button class="login-btn" onclick="loginWithGoogle()">
+      <i class="bi bi-google"></i> Google দিয়ে লগইন করুন
+    </button>
+  </div>
+
+  <div id="mainApp" style="display: none; width: 100%;">
+    
+    <div class="user-profile">
+      <div class="profile-info">
+        <img id="userImg" src="" alt="Avatar" class="user-avatar" crossorigin="anonymous">
+        <span id="userName">ব্যবহারকারী</span>
+      </div>
+      <button class="logout-btn" onclick="logoutFirebase()">লগআউট</button>
+    </div>
+
+    <div class="nav-container">
+      <nav class="navbar">
+        <div class="nav-indicator"></div>
+        
+        <div class="nav-item active" onclick="switchPage('home', 0)">
+          <i class="bi bi-house-door nav-icon"></i>
+          <span class="nav-label">হোম</span>
+        </div>
+
+        <div class="nav-item" onclick="switchPage('bazar', 1)">
+          <i class="bi bi-cart-dash nav-icon"></i>
+          <span class="nav-label">বাজার খরচ</span>
+        </div>
+        
+        <div class="nav-item" onclick="switchPage('meal', 2)">
+          <i class="bi bi-calendar-check nav-icon"></i>
+          <span class="nav-label">মিল হিসাব</span>
+        </div>
+        
+        <div class="nav-item" onclick="switchPage('rate', 3)">
+          <i class="bi bi-calculator nav-icon"></i>
+          <span class="nav-label">মিল রেট</span>
+        </div>
+        
+        <div class="nav-item" onclick="switchPage('month', 4)">
+          <i class="bi bi-file-earmark-bar-graph nav-icon"></i>
+          <span class="nav-label">মাসের হিসাব</span>
+        </div>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      
+      <div id="home" class="page-content active">
+        <div class="widget-container">
+          <div class="widget-box">
+              <span class="widget-title">মোট বাজার খরচ</span>
+              <h2 id="totalBazarCost" class="widget-value">০.০০ ৳</h2>
+          </div>
+          <div class="widget-box">
+              <span class="widget-title">বর্তমান মিল রেট</span>
+              <h2 id="liveRate" class="widget-value">০.০০ ৳</h2>
+          </div>
+          <div class="widget-box">
+              <span class="widget-title">তোমার মোট মিল</span>
+              <h2 id="userTotalMeals" class="widget-value">০.০০ টি</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="bazar" class="page-content">
+        <div class="placeholder-card">
+          <h3>বাজার খরচ পেজ</h3>
+          <div class="button-container">
+            <div class="card-btn" onclick="window.location.href='collect.html'">
+                মোট জমা
+            </div>
+            <div class="card-btn" onclick="window.location.href='daily.html'">
+                প্রতিদিনের বাজার
+            </div>
+            <div class="card-btn" onclick="window.location.href='fullMonthCost.html'">
+                মোট মাসিক বাজার 
+            </div>
+            <div class="card-btn" onclick="window.location.href='full_month.html'">
+                পুরো মাসের হিসাব
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="meal" class="page-content">
+        <div class="placeholder-card">
+          <h3>মিল হিসাব পেজ</h3>
+          
+          <div class="inputs">
+            <label for="name">NAME :</label>
+            <input type="text" id="name" readonly>
+          </div>
+          
+          <div class="inputs">
+            <label for="meal_date">DATE :</label>
+            <input type="date" id="meal_date">
+          </div>
+    
+          <div id="mealBox" style="margin-top: 20px;">
+            <label><input type="checkbox" id="breakfast"> সকাল (Breakfast)</label><br>
+            <label><input type="checkbox" id="lunch"> দুপুর (Lunch)</label><br>
+            <label><input type="checkbox" id="dinner"> রাত (Dinner)</label><br><br>
+            
+            <button onclick="saveMealToFirebase()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Save to Cloud</button>
+          </div>  
+        </div>
+      </div>
+      
+      <div id="rate" class="page-content">
+        <div class="placeholder-card">
+          <h3>মিল রেট ক্যালকুলেটর</h3>
+          <div class="calculate-container">
+            <div class="inputs">
+              <label for="collect">মোট জমা :</label>
+              <input type="text" id="collect" placeholder="ENTER COLLECTION">
+            </div>
+            
+            <div class="inputs">
+              <label for="totalCost">মোট বাজার খরচ :</label>
+              <input type="text" id="totalCost" placeholder="TOTAL COST">
+            </div>
+            
+            <div class="inputs">
+              <label for="number">মোট মিল সংখ্যা :</label>
+              <input type="text" id="number" step="any" placeholder="ENTER NUMBER OF MEALS">
+            </div>
+            
+            <div class="inputs highlight">
+              <label for="calculated_rate">মিল রেট :</label>
+              <input type="text" id="calculated_rate" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="month" class="page-content">
+        <div class="placeholder-card">
+          <h3>পুরো মাসের হিসাব</h3>
+           
+          <div class="inputs">
+            <label for="month-name">NAME :</label>
+            <input type="text" id="month-name" placeholder="ENTER YOUR NAME">
+          </div>
+          
+          <div class="inputs">
+            <label for="month-tk">MILL RATE :</label>
+            <input type="number" id="month-tk" placeholder="ENTER MILL RATE">
+          </div>
+          
+          <button onclick="loadMonthDataFromFirebase()" style="margin: 15px 0; padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; width: 100%;">হিসাব দেখুন</button>
+        
+          <h2 id="heading"></h2>
+          
+          <div class="table-scroll">
+            <table id="history-table">
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>সকাল</th>
+                  <th>দুপুর</th>
+                  <th>রাত</th>
+                  <th>টাকা</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="4">মোট :</th>
+                  <th id="total-amount">0</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <button id="clear-btn">CLEAR</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+   <script type="module" src="app-sync.js"></script>
+  <script type="module" src="home.js"></script>
+  <script type="module" src="meal_hisab.js"></script>
+  <script type="module" src="mil_rate.js"></script>
+
+  
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-Zzsrl5-chOLtnFalRZU4bgGNnSJ-K18",
+      authDomain: "mess-manager-9b662.firebaseapp.com",
+      projectId: "mess-manager-9b662",
+      storageBucket: "mess-manager-9b662.firebasestorage.app",
+      messagingSenderId: "710172865421",
+      appId: "1:710172865421:web:8897233378a250b0ed03c4",
+      measurementId: "G-B9HB486S8W",
+      databaseURL: "https://mess-manager-9b662-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.firebaseDB = database;
+    window.firebaseDatabaseRef = ref;
+    window.firebaseSet = set;
+    window.firebaseOnValue = onValue; 
+    window.firebaseGet = get;
+    window.firebaseChild = child;
+
+  
+    window.syncMealToFirebase = function(mealData) {
+      if (!window.firebaseDB) return;
+      const path = 'meals/' + mealData.date + '_' + mealData.name.replace(/[.#$/\[\]]/g, "_");
+      const dbRef = ref(window.firebaseDB, path);
+      
+      set(dbRef, mealData)
+        .then(() => console.log("অনলাইনে সফলভাবে সিঙ্ক হয়েছে:", mealData.date))
+        .catch(err => console.error("সিঙ্ক করতে ব্যর্থ:", err));
+    };
+
+    
+    window.addEventListener('online', () => {
+      console.log("ইন্টারনেট কানেকশন সচল হয়েছে! অফলাইন ডাটা সিঙ্ক হচ্ছে...");
+      let offlineMeals = JSON.parse(localStorage.getItem('offline_meals')) || [];
+      
+      if (offlineMeals.length > 0) {
+        offlineMeals.forEach(meal => {
+          window.syncMealToFirebase(meal);
+        });
+        localStorage.removeItem('offline_meals'); 
+        alert("আপনার অফলাইনে করা সব মিল হিসাব মেইন ডাটাবেজে আপডেট হয়েছে!");
+      }
+    });
+
+    
+    if (navigator.onLine) {
+     
+    } else {
+      
+      console.log("অ্যাপটি অফলাইনে রান করছে। ক্যাশ ডাটা লোড হচ্ছে...");
+    }
+
+   
+    window.loginWithGoogle = () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          console.log("Logged in:", result.user.displayName);
+        }).catch((error) => {
+          console.error("Login Failed:", error);
+         
+          if(!navigator.onLine) {
+            alert("অফলাইনে গুগল লগইন সম্ভব নয়।");
+          } else {
+            alert("লগইন করতে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
+          }
+        });
+    };
+
+    window.logoutFirebase = () => {
+      signOut(auth).then(() => {
+        console.log("Logged out successfully");
+      });
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainApp").style.display = "block";
+        document.getElementById("userName").innerText = user.displayName;
+        
+        if (user.photoURL) {
+            document.getElementById("userImg").src = user.photoURL;
+        } else {
+            document.getElementById("userImg").src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.displayName) + "&background=random&color=fff";
+        }
+        
+        if(document.getElementById("name")){
+            document.getElementById("name").value = user.displayName;
+        }
+
+       
+        localStorage.setItem('logged_in_user', user.displayName);
+
+        if(window.fetchUserTotalMeals) {
+            window.fetchUserTotalMeals(user.displayName);
+          }
+      } else {
+        
+        const cachedUser = localStorage.getItem('logged_in_user');
+        if (!navigator.onLine && cachedUser) {
+          document.getElementById("loginScreen").style.display = "none";
+          document.getElementById("mainApp").style.display = "block";
+          document.getElementById("userName").innerText = cachedUser;
+          if(document.getElementById("name")) document.getElementById("name").value = cachedUser;
+        } else {
+          document.getElementById("loginScreen").style.display = "flex";
+          document.getElementById("mainApp").style.display = "none";
+        }
+      }
+    });
+
+    if(window.mealRate) window.mealRate();
+    if(window.loadCost) window.loadCost();
+  </script>
+   
+</body>
+</html>
