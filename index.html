@@ -16,7 +16,7 @@
 
   <div id="loginScreen" class="auth-screen">
     <h2>মেস ম্যানেজার অ্যাপ</h2>
-    <p>সামনে যাওয়ার জন্য দয়া করে লগইন করুন</p>
+    <p>লগইন করুন</p>
     <button class="login-btn" onclick="loginWithGoogle()">
       <i class="bi bi-google"></i> Google দিয়ে লগইন করুন
     </button>
@@ -96,7 +96,7 @@
                 মোট মাসিক বাজার 
             </div>
             <div class="card-btn" onclick="window.location.href='full_month.html'">
-                পুরো মাসের হিসাব
+                অ্যাপ সম্পর্কে 
             </div>
           </div>
         </div>
@@ -116,12 +116,12 @@
             <input type="date" id="meal_date">
           </div>
     
-          <div id="mealBox" style="margin-top: 20px;">
+          <div id="mealBox">
             <label><input type="checkbox" id="breakfast"> সকাল (Breakfast)</label><br>
             <label><input type="checkbox" id="lunch"> দুপুর (Lunch)</label><br>
             <label><input type="checkbox" id="dinner"> রাত (Dinner)</label><br><br>
             
-            <button onclick="saveMealToFirebase()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Save to Cloud</button>
+            <button onclick="saveMealToFirebase()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Save</button>
           </div>  
         </div>
       </div>
