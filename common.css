@@ -455,7 +455,8 @@ tr:last-child th {
 
 .nav-container {
   position: fixed;
-  top: 59px; 
+  top: auto; 
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
