@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="fullMonthCost.css">
+  <title>Product Cost</title>
+</head>
+<body>
+          
+            
+  
+  <div class="cost-container">
+     
+    <div class="table-data">
+         <h3>বাজারের তালিকা</h3>
+                <div class="table-scroll">
+            <table id="cost-section">
+                <thead>
+                    <tr>
+                        <th>তারিখ</th>
+                        <th>টাকা (৳)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+           
+              <tr>
+                <th >মোট :</th>
+                 <th id="totalCost">0</th>
+               </tr>
+             </table>
+                </div>
+        </div>
+  </div>
+     <script type="module" src="app-sync.js"></script>
+    <script type="module" src="fullMonthCost.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-Zzsrl5-chOLtnFalRZU4bgGNnSJ-K18",
+      authDomain: "mess-manager-9b662.firebaseapp.com",
+      projectId: "mess-manager-9b662",
+      storageBucket: "mess-manager-9b662.firebasestorage.app",
+      messagingSenderId: "710172865421",
+      appId: "1:710172865421:web:8897233378a250b0ed03c4",
+      measurementId: "G-B9HB486S8W",
+      databaseURL: "https://mess-manager-9b662-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // এগুলোকে গ্লোবাল করা হলো যেন আপনার আলাদা JS ফাইল এগুলো ব্যবহার করতে পারে
+    window.firebaseDB = database;
+    window.firebaseDatabaseRef = ref;
+    window.firebaseSet = set;
+    window.firebaseGet = get;
+    window.firebaseChild = child;
+  </script>
+
+</body>
+</html>
